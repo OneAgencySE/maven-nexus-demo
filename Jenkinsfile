@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn clean install'
+                sh 'mvn -Plocal-docker clean install'
             }
         }
         stage('Deploy') {
@@ -19,7 +19,7 @@ pipeline {
                 ok "Yes, we should."
             }
             steps {
-                sh 'mvn deploy'
+                sh 'mvn -s settings.xml -Plocal-docker,local-deploy deploy'
             }
         }
     }
