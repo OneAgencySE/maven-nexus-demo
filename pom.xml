@@ -4,7 +4,7 @@
 
     <groupId>lime.demo</groupId>
     <artifactId>maven-repos</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <dependencies>
         <dependency>
@@ -71,8 +71,9 @@
                 </pluginRepository>
             </pluginRepositories>
         </profile>
+
         <!-- ====================================================== -->
-        <!-- L O C A L  D O C K E R  P R O F I L E                -->
+        <!-- L O C A L  D O C K E R  P R O F I L E                  -->
         <!-- ====================================================== -->
         <profile>
             <id>local-docker</id>
@@ -112,6 +113,11 @@
                 </pluginRepository>
             </pluginRepositories>
         </profile>
+
+        <!-- ====================================================== -->
+        <!-- L O C A L  D O C K E R  D E P L O Y                    -->
+        <!-- ====================================================== -->
+
         <profile>
             <id>local-deploy</id>
 

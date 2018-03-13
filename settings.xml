@@ -10,13 +10,13 @@
     <servers>
         <server>
             <id>local-release</id>
-            <username>deployment</username>
-            <password>deployme</password>
+            <username>admin</username>
+            <password>admin123</password>
         </server>
         <server>
             <id>local-snapshot</id>
-            <username>deployment</username>
-            <password>deployme</password>
+            <username>admin</username>
+            <password>admin123</password>
         </server>
     </servers>
 </settings>

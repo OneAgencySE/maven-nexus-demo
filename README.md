@@ -26,5 +26,98 @@ Nexus is started on http://localhost:8081 with default user/pass (admin/admin123
 
 ## The Demo
 
+In this demo, I have used the artifact _com.day.crx:crx-api:2.5.0_. Nevermind what is does, I used it because
+it can not be found in the Central Repo. It is a part of the Adobe Experience Manager (AEM) toolbox. I just
+needed it for demo purposes.
 
+### Step 1 - Get it to build
 
+Lets start with doing the command we all love.
+
+```commandline
+mv clean install
+``` 
+
+It fails because we can't find that dependency. That one is deployed by Adobe in their repository that is
+found at https://repo.adobe.com/nexus/content/groups/public.
+
+I have create a profile in the pom, _abobe-public_, that points out this repository.
+
+Let us run the command, but this time with this profile activated.
+
+``commandline
+mvn -Padobe-public clean install
+```
+
+Now it builds.
+
+What is we wanted to use our local Nexus repository instead? The settings for that is done in the profile with id
+_local-docker_. Let us try it. We need to remove the dependency from the local repo first. (The -U is to force update).
+
+```commandline
+rm -rf ~/.m2/repository/com/day/
+mvn -U -Plocal-docker clean install
+```
+
+Nope, it doesn't work. That is because we have not added the Adobe Repository as a proxy to our local Nexus. Lets do that.
+
+1. Login to Nexus as admin and click the little cog.
+1. Select "Repositories"
+1. Click "Create repository"
+1. Select "maven2 (proxy)"
+1. Enter "adobe-public-releases" as name
+1. Enter "https://repo.adobe.com/nexus/content/groups/public" as URL.
+1. Scroll down and hit "Create repository"
+1. Select the "maven-public" repository.
+1. Scroll down till you see the _Member repositories_ and add the Adobe Repo to members.
+1. Save
+
+Now, go back to the Browse Repositories (that is the box and then Browse). You should see all our repositories now. If you
+look into the Adobe one, it should be empty.
+
+Lets re-run the command.
+```commandline
+mvn -U -Plocal-docker clean install
+```
+
+Now it works. If you browse the Adobe Repo in Nexus now, you will notice
+that it has downloaded it to the server with the dependencies needed. Now, the
+Adobe Repo can go down and we can still build our application.
+
+### Step 2 - Deploy it to Nexus
+
+Nexus has two Maven repos by default; _maven-releases_ and _maven-snapshots_.
+Let us try to deploy our artifact to the repo. The distribution management  settings is done in the profile _local-deploy_.
+
+```commandline
+mvn -Plocal-docker,local-deploy clean deploy
+```
+
+This fails... :( It failes because we don't have permissions to deploy to this server. You have to define the server
+credentials in the settings.xml file. That is normaly found under ~/.m2/settings.xml and you should encrypt the passwords.
+See https://maven.apache.org/guides/mini/guide-encryption.html.
+
+I have created a settings.xml file with the default admin password to use. NEVER DO THIS IN REAL PROJECTS!!!
+
+Run this command:
+```commandline
+mvn -Plocal-docker,local-deploy -s settings.xml clean deploy
+```
+
+You can now browse the maven-snapshots repository at http://localhost:8081/#browse/browse:maven-snapshots.
+
+Run the command again.
+
+And again...
+
+In a Snapshot Repository, you can redeploy an artifact. 
+
+### Step 3 - Release
+
+Change the version to 1.0.0 and run the deploy command.
+
+If we browse the http://localhost:8081/#browse/browse:maven-releases, we now find the 1.0.0 version of our artifact.
+
+Try running the command again.
+
+Ooops!! Failed. You can not re-deploy something that is released.
