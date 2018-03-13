@@ -54,3 +54,7 @@ buildNumber.properties
 
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
+
+# Do not commit the data  direxctories
+jenkins_home/
+nexus-data/
