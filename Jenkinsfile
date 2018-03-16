@@ -34,11 +34,12 @@ pipeline {
                         ok "Yes, we should."
                     }
                     steps {
-                        script {
-                            sshagent (credentials: ['jenkins']) {
+
+                              withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'jenkins', \
+                                                                         keyFileVariable: 'SSH_KEY_FOR_GITHUB')]) {
                               sh 'mvn -Plocal-docker,local-deploy,jenkins -s settings.xml release:prepare release:perform'
                             }
-                        }
+                        
                      }
                 }
     }
