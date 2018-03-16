@@ -3,9 +3,6 @@ pipeline {
         docker { image 'maven:3-jdk-8' }
     }
 
-    environment {
-        NEXUS_SERVER = 'nexus'
-    }
 
     stages {
         stage('Version') {
@@ -15,7 +12,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn -Plocal-docker clean install'
+                sh 'mvn -Plocal-docker,jenkins clean install'
             }
         }
         stage('Deploy') {
@@ -24,7 +21,7 @@ pipeline {
                 ok "Yes, we should."
             }
             steps {
-                sh 'mvn -s settings.xml -Plocal-docker,local-deploy deploy'
+                sh 'mvn -s settings.xml -Plocal-docker,local-deploy,jenkins deploy'
             }
         }
          stage('Release') {
@@ -33,7 +30,7 @@ pipeline {
                         ok "Yes, we should."
                     }
                     steps {
-                        sh 'mvn -s settings.xml -Plocal-docker,local-deploy deploy'
+                        sh 'mvn -s settings.xml -Plocal-docker,local-deploy,jenkins deploy'
                     }
                 }
     }

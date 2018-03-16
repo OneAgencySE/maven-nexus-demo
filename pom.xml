@@ -157,6 +157,19 @@
                 </snapshotRepository>
             </distributionManagement>
         </profile>
+        <profile>
+            <id>jenkins</id>
+
+            <activation>
+                <activeByDefault>false</activeByDefault><file>
+                <exists>/var/run/docker.pid</exists>
+            </file>
+            </activation>
+            <properties>
+                <nexus.server>nexus</nexus.server>
+                <jenkins.server>jenkins</jenkins.server>
+            </properties>
+        </profile>
     </profiles>
 
 </project>
