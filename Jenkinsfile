@@ -34,10 +34,12 @@ pipeline {
                         ok "Yes, we should."
                     }
                     steps {
-                        sshagent (credentials: ['jenkins']) {
+                        script {
+                            sshagent (credentials: ['jenkins']) {
                               sh 'mvn -Plocal-docker,local-deploy,jenkins -s settings.xml release:prepare release:perform'
+                            }
                         }
-                    }
+                     }
                 }
     }
 }
