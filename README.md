@@ -121,3 +121,7 @@ If we browse the http://localhost:8081/#browse/browse:maven-releases, we now fin
 Try running the command again.
 
 Ooops!! Failed. You can not re-deploy something that is released.
+
+### Step 4 - Building this in Jenkins
+
+You can point out this repository and make Jenkins build it. 

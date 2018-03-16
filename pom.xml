@@ -4,16 +4,18 @@
 
     <groupId>lime.demo</groupId>
     <artifactId>maven-repos</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.day.crx</groupId>
-            <artifactId>crx-api</artifactId>
-            <version>2.5.0</version>
-        </dependency>
-    </dependencies>
+    <name>Maven Demo Project</name>
+    <description>Used to demonstrate a lot of different WoW and best practises in Maven.</description>
 
+    <scm>
+        <connection>scm:git:https://github.com/ovelindstrom/maven-nexus-demo.git</connection>
+        <developerConnection>scm:git:https://github.com/ovelindstrom/maven-nexus-demo.git</developerConnection>
+        <url>https://github.com/ovelindstrom/maven-nexus-demo/tree/${project.scm.tag}</url>
+        <tag>HEAD</tag>
+    </scm>
+    
     <build>
     <plugins>
         <plugin>
@@ -23,6 +25,15 @@
         </plugin>
     </plugins>
     </build>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.day.crx</groupId>
+            <artifactId>crx-api</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+    </dependencies>
 
     <profiles>
         <!-- ====================================================== -->
@@ -42,19 +53,19 @@
             </properties>
 
             <repositories>
-                <repository>
-                    <id>adobe-public-releases</id>
-                    <name>Adobe Public Repository</name>
-                    <url>https://repo.adobe.com/nexus/content/groups/public</url>
-                    <releases>
-                        <enabled>true</enabled>
-                        <updatePolicy>never</updatePolicy>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
+            <repository>
+                <id>adobe-public-releases</id>
+                <name>Adobe Public Repository</name>
+                <url>https://repo.adobe.com/nexus/content/groups/public</url>
+                <releases>
+                    <enabled>true</enabled>
+                    <updatePolicy>never</updatePolicy>
+                </releases>
+                <snapshots>
+                    <enabled>false</enabled>
+                </snapshots>
+            </repository>
+        </repositories>
 
             <pluginRepositories>
                 <pluginRepository>
