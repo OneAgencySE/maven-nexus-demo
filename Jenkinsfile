@@ -2,6 +2,11 @@ pipeline {
     agent {
         docker { image 'maven:3-jdk-8' }
     }
+
+    environment {
+        NEXUS_SERVER = 'nexus'
+    }
+
     stages {
         stage('Version') {
             steps {
@@ -22,5 +27,14 @@ pipeline {
                 sh 'mvn -s settings.xml -Plocal-docker,local-deploy deploy'
             }
         }
+         stage('Release') {
+                    input {
+                        message "Should we release?"
+                        ok "Yes, we should."
+                    }
+                    steps {
+                        sh 'mvn -s settings.xml -Plocal-docker,local-deploy deploy'
+                    }
+                }
     }
 }

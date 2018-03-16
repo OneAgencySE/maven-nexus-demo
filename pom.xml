@@ -26,6 +26,11 @@
     </plugins>
     </build>
 
+    <properties>
+        <nexus.server>localhost</nexus.server>
+        <jenkins.server>localhost</jenkins.server>
+    </properties>
+
 
     <dependencies>
         <dependency>
@@ -98,7 +103,7 @@
                 <repository>
                     <id>local-docker-public</id>
                     <name>Local Docker Public Repository</name>
-                    <url>http://localhost:8081/repository/maven-public/</url>
+                    <url>http://${nexus.server}:8081/repository/maven-public/</url>
                     <releases>
                         <enabled>true</enabled>
                         <updatePolicy>never</updatePolicy>
@@ -113,7 +118,7 @@
                 <pluginRepository>
                     <id>local-docker-public-releases</id>
                     <name>Local Docker Public Releases Repository</name>
-                    <url>http://localhost:8081/repository/maven-public/</url>
+                    <url>http://${nexus.server}:8081/repository/maven-public/</url>
                     <releases>
                         <enabled>true</enabled>
                         <updatePolicy>never</updatePolicy>
@@ -141,13 +146,13 @@
                     <uniqueVersion>true</uniqueVersion>
                     <id>local-release</id>
                     <name>Local Docker Release</name>
-                    <url>http://localhost:8081/repository/maven-releases/</url>
+                    <url>http://${nexus.server}:8081/repository/maven-releases/</url>
                 </repository>
                 <snapshotRepository>
                     <uniqueVersion>true</uniqueVersion>
                     <id>local-snapshot</id>
                     <name>Local Docker Snapshots</name>
-                    <url>http://localhost:8081/repository/maven-snapshots/</url>
+                    <url>http://${nexus.server}:8081/repository/maven-snapshots/</url>
                     <layout>legacy</layout>
                 </snapshotRepository>
             </distributionManagement>
