@@ -34,7 +34,7 @@ pipeline {
                         ok "Yes, we should."
                     }
                     steps {
-                        sh 'mvn -s settings.xml -Plocal-docker,local-deploy,jenkins deploy'
+                        sh 'mvn -Plocal-docker,local-deploy,jenkins -s settings.xml release:prepare release:perform'
                     }
                 }
     }
