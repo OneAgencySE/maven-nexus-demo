@@ -37,9 +37,11 @@ pipeline {
 
                               withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'jenkins', \
                                                                          keyFileVariable: 'SSH_KEY_FOR_GITHUB')]) {
+
+                              sh ' git config user.email "ci@jenkins.docker.local" && git config user.name "Jenkins CI"'
                               sh 'mvn -Plocal-docker,local-deploy,jenkins -s settings.xml release:prepare release:perform'
                             }
-                        
+
                      }
                 }
     }
