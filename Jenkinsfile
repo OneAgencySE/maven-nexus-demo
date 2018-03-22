@@ -3,7 +3,7 @@ pipeline {
         docker {
         image 'maven:3-jdk-8'
          reuseNode true
-         args '--network=dockerjenkins_default'
+         args '--network=maven-demo-net'
         }
     }
 

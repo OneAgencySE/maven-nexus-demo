@@ -4,10 +4,15 @@ A Small demo how Manven and Nexus is working together.
 
 ## Preparations
 
-It is nice to have an IDE, such as IntelliJ, that can handle manen builds and profiles.
+It is nice to have an IDE, such as IntelliJ, that can handle Maven builds and profiles.
 
 You should have Maven 3 and JDK8 installed on your local machine. Or use Docker Images, but
-all command assumes that you have it installed localy.
+all command in this demo assumes that you have it installed. There is, however, a script (alias.sh) 
+that creates a _dmvn_ command that works as _mvn_. Note that the Docker Maven can't do stuff like clean.
+
+```commandline
+source alias.sh
+```
 
 ### Start the servers.
 
@@ -19,10 +24,14 @@ To start them, just run
 docker-compose up
 ```
 
+This step takes a while, so chill for a while.
+
+
 This starts Jenkins on http://localhost:8080. Pay attention to the initial password string. You need
 this to gain access to Jenkins the first time. I use admin/admin for this demo.
 
 Nexus is started on http://localhost:8081 with default user/pass (admin/admin123).
+
 
 ## The Demo
 
@@ -35,7 +44,7 @@ needed it for demo purposes.
 Lets start with doing the command we all love.
 
 ```commandline
-mv clean install
+mvn clean install
 ``` 
 
 It fails because we can't find that dependency. That one is deployed by Adobe in their repository that is
@@ -45,7 +54,7 @@ I have create a profile in the pom, _abobe-public_, that points out this reposit
 
 Let us run the command, but this time with this profile activated.
 
-``commandline
+```commandline
 mvn -Padobe-public clean install
 ```
 
@@ -124,5 +133,14 @@ Ooops!! Failed. You can not re-deploy something that is released.
 
 ### Step 4 - Building this in Jenkins
 
+
 You can point out this repository and make Jenkins build it. I do recommend that you fork it to your own
 repository so that you can do releases on you own without disturbing the original repository.
+
+Hint: if Jenkins can't build docker containers, it most likely is due to access rights to the socket.
+To solve this, attach to the running Jenkins docker and change the settings of the socket.
+
+```commandline
+docker exec -it -u root mavennexusdemo_jenkins_1 bash
+chmod 777 /var/run/docker.sock
+```

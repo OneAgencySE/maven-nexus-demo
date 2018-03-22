@@ -1,4 +1,4 @@
-version: "3"
+version: "3.5"
 services:
   jenkins:
     build: .
@@ -6,6 +6,8 @@ services:
     ports:
       - "8080:8080"
       - "5000:5000"
+    networks:
+      - maven-demo-net
     links:
       - "nexus:nexus"
     volumes:
@@ -13,7 +15,12 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
   nexus:
     image: sonatype/nexus3
+    networks:
+          - maven-demo-net
     ports:
       - 8081:8081
     volumes:
       - ./nexus-data:/nexus-data
+networks:
+  maven-demo-net:
+    name: maven-demo-net

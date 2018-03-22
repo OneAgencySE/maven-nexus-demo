@@ -17,8 +17,8 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 	apt-get -y install docker-ce
 
 # This is to run it on Mac. The 777 on docker.sock is a hack.
-RUN gpasswd -a jenkins staff && \
-    chmod 777 /var/run/docker.sock
+RUN gpasswd -a jenkins staff
+# RUN chmod 777 /var/run/docker.sock
 
 USER jenkins
 RUN export DOCKER_HOST=unix:///var/run/docker.sock
