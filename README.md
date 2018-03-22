@@ -13,6 +13,8 @@ that creates a _dmvn_ command that works as _mvn_. Note that the Docker Maven ca
 ```commandline
 source alias.sh
 ```
+Also, this is a good time to fork this repository. After that, change the 
+<scm.root>https://github.com/OneAgencySE</scm.root> in the pom to point to your repository and commit that change.
 
 ### Start the servers.
 
@@ -28,7 +30,7 @@ This step takes a while, so chill for a while.
 
 
 This starts Jenkins on http://localhost:8080. Pay attention to the initial password string. You need
-this to gain access to Jenkins the first time. I use admin/admin for this demo.
+this to gain access to Jenkins the first time. (I use admin/admin for this demo.)
 
 Nexus is started on http://localhost:8081 with default user/pass (admin/admin123).
 
@@ -131,6 +133,15 @@ Try running the command again.
 
 Ooops!! Failed. You can not re-deploy something that is released.
 
+#### Using the Release Plugin
+
+If you have forked the repository (or have access to the original repo), you can use the 
+[Release Plugin](http://maven.apache.org/maven-release/maven-release-plugin/) to do the work for you.
+
+Make sure the terminal user has commit rights to the repository that are used.
+
+
+
 ### Step 4 - Building this in Jenkins
 
 
@@ -144,3 +155,5 @@ To solve this, attach to the running Jenkins docker and change the settings of t
 docker exec -it -u root mavennexusdemo_jenkins_1 bash
 chmod 777 /var/run/docker.sock
 ```
+If you want to do the Release with Jenkins, you need to add your GitHub private key when setting up the job.
+

@@ -154,7 +154,6 @@
                     <id>local-snapshot</id>
                     <name>Local Docker Snapshots</name>
                     <url>http://${nexus.server}:8081/repository/maven-snapshots/</url>
-                    <layout>legacy</layout>
                 </snapshotRepository>
             </distributionManagement>
         </profile>
