@@ -124,4 +124,5 @@ Ooops!! Failed. You can not re-deploy something that is released.
 
 ### Step 4 - Building this in Jenkins
 
-You can point out this repository and make Jenkins build it. 
+You can point out this repository and make Jenkins build it. I do recommend that you fork it to your own
+repository so that you can do releases on you own without disturbing the original repository.

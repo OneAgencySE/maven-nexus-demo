@@ -6,6 +6,8 @@ services:
     ports:
       - "8080:8080"
       - "5000:5000"
+    links:
+      - "nexus:nexus"
     volumes:
       - ./jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
